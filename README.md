@@ -36,4 +36,4 @@ For placing main widget user can use `body_layout` attribute which is `QVBoxLayo
 
 ![](./assets/demo.gif)
 
-Example of using `FramelessWindow` you can find [here](https://github.com/CrinitusFeles/PyQt-Frameless-Window/pyqt_frameless_window/example/frameless_example.py).
+Example of using `FramelessWindow` you can find [here](https://github.com/CrinitusFeles/PyQt-Frameless-Window/blob/main/pyqt_frameless_window/example/frameless_example.py).
