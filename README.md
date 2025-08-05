@@ -34,4 +34,6 @@ For placing main widget user can use `body_layout` attribute which is `QVBoxLayo
 
 `FramelessWindow` emulates snap layout behavior of Windows10 with hotkeys combinations: `Win + Left/Right/Up/Down`. Also implemented fullscreen mode with `F11` hotkey similar to web browser.
 
+![](./assets/demo.mkv)
+
 Example of using `FramelessWindow` you can find [here](https://github.com/CrinitusFeles/PyQt-Frameless-Window/pyqt_frameless_window/example/frameless_example.py).
