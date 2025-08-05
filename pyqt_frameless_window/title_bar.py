@@ -18,6 +18,7 @@ class TitleBar(QWidget):
         self._layout.setSpacing(0)
         self.setLayout(self._layout)
         self.left_layout = QHBoxLayout()
+        self.left_layout.setContentsMargins(10, 0, 0, 0)
         self.center_layout = QHBoxLayout()
         self.center_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.right_layout = QHBoxLayout()
