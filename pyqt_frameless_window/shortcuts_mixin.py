@@ -3,7 +3,7 @@
 import asyncio
 from typing import Callable
 import keyboard
-from pyqt_frameless_window import QApplication, QRect
+from pyqt_frameless_window import QRect
 from pyqt_frameless_window.snap_layout import ButtonKey, SnapState
 
 
@@ -52,12 +52,12 @@ class ShortcutsMixin:
     def hide_grips(self):
         ...
 
+    def get_current_screen(self) -> QRect:
+        ...
+
     def set_snap_state(self, state: SnapState):
-        screen = QApplication.primaryScreen()
-        if not screen:
-            return
-        g = screen.availableGeometry()
-        w = g.width()
+        g: QRect = self.get_current_screen()
+        w: int = g.width()
         if self.snap_state == SnapState.NORMAL:
             self._save_geometry()
         if state == SnapState.MAXIMIZED:

@@ -25,6 +25,7 @@ class DemoWindow(FramelessWindow):
         super().__init__(parent)
         self.titlebar.setTitle('Hello world')
         self.setStyleSheet(stylesheet)
+        self.resize(700, 500)
         nyancat_label = QtWidgets.QLabel()
         movie = QMovie(str(Path(__file__).parent / 'assets' / 'nyancat.gif'))
         nyancat_label.setMovie(movie)

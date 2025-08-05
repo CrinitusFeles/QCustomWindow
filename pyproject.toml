@@ -16,3 +16,7 @@ pyqt = [
 pyside = [
     "pyside6",
 ]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyqt_frameless_window*"]

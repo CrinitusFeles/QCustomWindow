@@ -61,11 +61,12 @@ class FramelessWindow(QWidget, ShortcutsMixin):
         self._layout.setContentsMargins(0, 0, 0, 0)
 
     def on_win(self, key: ButtonKey):
-        if self.isActiveWindow():
-            snap_state = snap_states.get((self.snap_state, key), self.snap_state)
+        if self.isActiveWindow() and not self.isFullScreen():
+            state: SnapState = snap_states.get((self.snap_state, key),
+                                               self.snap_state)
             if not self.titlebar.isVisible():
                 self.set_visible(True)
-            self.set_snap_state(snap_state)
+            self.set_snap_state(state)
             if not self._is_maximized():
                 self.titlebar.set_normal()
 
@@ -74,7 +75,7 @@ class FramelessWindow(QWidget, ShortcutsMixin):
 
     def on_full_screen(self):
         if not self.isFullScreen():
-            if not self._is_maximized():
+            if self.snap_state == SnapState.NORMAL:
                 self._save_geometry()
             self.fullscreen()
         else:
@@ -82,7 +83,7 @@ class FramelessWindow(QWidget, ShortcutsMixin):
                 self.normal()
                 self.maximize()
             else:
-                self.normal()
+                super().showNormal()
             self.titlebar.setVisible(True)
 
     def move_to_cursor(self):
@@ -92,10 +93,9 @@ class FramelessWindow(QWidget, ShortcutsMixin):
                       pos.y() - self.BORDER_WIDTH * 2)
 
     def fullscreen(self):
-        self._layout.setContentsMargins(0, 0, 0, 0)
         self.showFullScreen()
         self.titlebar.setVisible(False)
-        self.size_grips.set_grips_visible(False)
+        self.hide_grips()
 
     def on_maximize(self):
         if self._is_maximized():
@@ -113,20 +113,24 @@ class FramelessWindow(QWidget, ShortcutsMixin):
         self.hide_grips()
         self.snap_state = SnapState.MAXIMIZED
 
-    def showMaximized(self):
-        screen = QApplication.primaryScreen()
+    def get_current_screen(self):
+        screen = QApplication.screenAt(self.pos())
         if not screen:
-            return
+            raise RuntimeError('Screen not found')
         g = screen.availableGeometry()
+        return g
+
+    def showMaximized(self):
+        g = self.get_current_screen()
         self.setGeometry(g)
 
     def showNormal(self):
+        super().showNormal()
         self.setGeometry(self._last_geom)
         self.titlebar.set_normal()
 
     def normal(self):
         self.showNormal()
-        self.setGeometry(self._last_geom)
         self._layout.setContentsMargins(self.BORDER_WIDTH, self.BORDER_WIDTH,
                                         self.BORDER_WIDTH, self.BORDER_WIDTH)
         self.size_grips.set_grips_visible(True)
