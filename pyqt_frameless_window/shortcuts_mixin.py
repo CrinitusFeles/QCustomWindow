@@ -82,20 +82,20 @@ class ShortcutsMixin:
         if state == SnapState.LEFT:
             g.setWidth(w // 2)
         elif state == SnapState.RIGHT:
-            g.setX(w // 2)
+            g.setX(g.x() + w // 2)
             g.setWidth(w // 2)
         elif state == SnapState.TOP_LEFT:
             g.setWidth(w // 2)
             g.setHeight(g.height() // 2)
         elif state == SnapState.TOP_RIGHT:
-            g.setX(w // 2)
+            g.setX(g.x() + w // 2)
             g.setWidth(w // 2)
             g.setHeight(g.height() // 2)
         elif state == SnapState.BOTTOM_LEFT:
             g.setWidth(w // 2)
             g.setY(g.height() // 2)
         elif state == SnapState.BOTTOM_RIGHT:
-            g.setX(w // 2)
+            g.setX(g.x() + w // 2)
             g.setWidth(w // 2)
             g.setY(g.height() // 2)
         self.setGeometry(g)

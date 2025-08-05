@@ -80,10 +80,10 @@ class FramelessWindow(QWidget, ShortcutsMixin):
             self.fullscreen()
         else:
             if self._is_maximized():
-                self.normal()
                 self.maximize()
             else:
-                super().showNormal()
+                show_grips = self.snap_state == SnapState.NORMAL
+                self.normal(set_state=False, show_grips=show_grips)
             self.titlebar.setVisible(True)
 
     def move_to_cursor(self):
@@ -124,17 +124,16 @@ class FramelessWindow(QWidget, ShortcutsMixin):
         g = self.get_current_screen()
         self.setGeometry(g)
 
-    def showNormal(self):
-        super().showNormal()
-        self.setGeometry(self._last_geom)
-        self.titlebar.set_normal()
-
-    def normal(self):
+    def normal(self, set_state: bool = True, show_grips: bool = True):
         self.showNormal()
-        self._layout.setContentsMargins(self.BORDER_WIDTH, self.BORDER_WIDTH,
-                                        self.BORDER_WIDTH, self.BORDER_WIDTH)
-        self.size_grips.set_grips_visible(True)
-        self.snap_state = SnapState.NORMAL
+        self.titlebar.set_normal()
+        if show_grips:
+            self.size_grips.set_grips_visible(True)
+            self._layout.setContentsMargins(self.BORDER_WIDTH, self.BORDER_WIDTH,
+                                            self.BORDER_WIDTH, self.BORDER_WIDTH)
+        if set_state:
+            self.setGeometry(self._last_geom)
+            self.snap_state = SnapState.NORMAL
 
     def paintEvent(self, a0):
         super().paintEvent(a0)
