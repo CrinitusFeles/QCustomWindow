@@ -1,6 +1,4 @@
-import asyncio
 from pathlib import Path
-from qasync import QEventLoop
 from pyqt_frameless_window import (FramelessWindow, QtWidgets, QMovie,
                                    __version__, dark, light, stylesheet)  # noqa: F401
 
@@ -49,12 +47,7 @@ class DemoWindow(FramelessWindow):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
-    event_loop = QEventLoop(app)
-    asyncio.set_event_loop(event_loop)
-    app_close_event = asyncio.Event()
-    app.aboutToQuit.connect(app_close_event.set)
     dark()
     w = DemoWindow()
     w.show()
-    with event_loop:
-        event_loop.run_until_complete(app_close_event.wait())
+    app.exec()
