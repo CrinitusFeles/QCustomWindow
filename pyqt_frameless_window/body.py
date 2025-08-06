@@ -1,5 +1,3 @@
-import asyncio
-from qasync import QEventLoop
 from pyqt_frameless_window import (QWidget, QVBoxLayout, QPixmap, QPainter,
                                    QPalette, QApplication)
 
@@ -27,14 +25,9 @@ class Body(QWidget):
 
 if __name__ == '__main__':
     app = QApplication([])
-    event_loop = QEventLoop(app)
-    asyncio.set_event_loop(event_loop)
-    app_close_event = asyncio.Event()
-    app.aboutToQuit.connect(app_close_event.set)
     w = Body()
     # f = QtWidgets.QTabWidget(w)
     # w.body_layout.addWidget(f)
 
     w.show()
-    with event_loop:
-        event_loop.run_until_complete(app_close_event.wait())
+    app.exec()

@@ -1,6 +1,3 @@
-
-
-import asyncio
 from typing import Callable
 import keyboard
 from pyqt_frameless_window import QRect
@@ -26,13 +23,11 @@ class ShortcutsMixin:
     def on_shortcut(self, key: ButtonKey):
         self.last_key = key
 
-    async def shortcuts_routine(self):
-        while True:
-            await asyncio.sleep(0.001)
-            if self.last_key is not None:
-                if self.key_handler:
-                    self.key_handler(self.last_key)
-                self.last_key = None
+    def shortcuts_routine(self):
+        if self.last_key is not None:
+            if self.key_handler:
+                self.key_handler(self.last_key)
+            self.last_key = None
 
     def _save_geometry(self):
         ...

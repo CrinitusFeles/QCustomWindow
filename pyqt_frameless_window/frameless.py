@@ -1,9 +1,7 @@
-import asyncio
 from pyqt_frameless_window import (Qt, QPoint, QRect, QTimer, QCursor,
                                    QShortcut, QKeySequence, QPixmap, QPainter,
                                    QColor, QApplication, QWidget, QVBoxLayout,
                                    QTabWidget)
-from qasync import QEventLoop
 from pyqt_frameless_window.body import Body
 from pyqt_frameless_window.size_grips import SizeGrips
 from pyqt_frameless_window.shortcuts_mixin import ShortcutsMixin
@@ -45,12 +43,10 @@ class FramelessWindow(QWidget, ShortcutsMixin):
         self.size_grips = SizeGrips(self)
 
         self._last_geom: QRect = self.geometry()
-        startup_time = QTimer()
-        startup_time.singleShot(0, self.start_keyboard_listener)
+        self.win_key_timer = QTimer()
+        self.win_key_timer.timeout.connect(self.shortcuts_routine)
+        self.win_key_timer.start(1)
         self.key_handler = self.on_win
-
-    def start_keyboard_listener(self):
-        self.shortcut_task = asyncio.create_task(self.shortcuts_routine())
 
     def set_visible(self, state: bool):
         self.titlebar.setVisible(state)
@@ -171,17 +167,11 @@ class FramelessWindow(QWidget, ShortcutsMixin):
 
 
 if __name__ == '__main__':
-
     app = QApplication([])
-    event_loop = QEventLoop(app)
-    asyncio.set_event_loop(event_loop)
-    app_close_event = asyncio.Event()
-    app.aboutToQuit.connect(app_close_event.set)
     w = FramelessWindow()
 
     f = QTabWidget(w)
     w.body_layout.addWidget(f)
 
     w.show()
-    with event_loop:
-        event_loop.run_until_complete(app_close_event.wait())
+    app.exec()
