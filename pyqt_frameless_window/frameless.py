@@ -33,10 +33,9 @@ class FramelessWindow(QWidget):
                                       self.on_full_screen,
                                       context=Qt.ShortcutContext.ApplicationShortcut)
 
-    def nativeEvent(self, eventType, message): # type: ignore
+    def nativeEvent(self, eventType, message) -> tuple[bool, int]:  # type: ignore
         """ Handle the Windows message """
         msg = MSG.from_address(message.__int__())  # type: ignore
-        self.hwnd = msg.hWnd
         if not msg.hWnd:
             return False, 0
         if msg.message == win32con.WM_NCCALCSIZE:
@@ -66,6 +65,24 @@ class FramelessWindow(QWidget):
         super().resizeEvent(a0)
         self.size_grips.updateGrips()
 
+    def add_center_widget(self, widget: QWidget) -> None:
+        self.titlebar.center_layout.addWidget(widget)
+
+    def add_right_widget(self, widget: QWidget) -> None:
+        self.titlebar.right_layout.addWidget(widget)
+
+    def add_left_widget(self, widget: QWidget) -> None:
+        self.titlebar.left_layout.addWidget(widget)
+
+    def setTitle(self, title: str) -> None:
+        self.setWindowTitle(title)
+        self.titlebar.title_label.setText(title)
+
+    def title(self) -> str:
+        return self.title_label.text()
+
+    def addWidget(self, w: QWidget):
+        self.body_layout.addWidget(w)
 
 if __name__ == '__main__':
     app = QApplication([])

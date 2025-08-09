@@ -64,22 +64,6 @@ class TitleBar(QWidget):
         self.maxButton.clicked.emit()
         return super().mouseDoubleClickEvent(a0)
 
-    def add_center_widget(self, widget: QWidget) -> None:
-        self.center_layout.addWidget(widget)
-
-    def add_right_widget(self, widget: QWidget) -> None:
-        self.right_layout.addWidget(widget)
-
-    def add_left_widget(self, widget: QWidget) -> None:
-        self.left_layout.addWidget(widget)
-
-    def setTitle(self, title: str) -> None:
-        self.parent_obj.setWindowTitle(title)
-        self.title_label.setText(title)
-
-    def title(self) -> str:
-        return self.title_label.text()
-
     def mousePressEvent(self, a0: QMouseEvent | None):
         if a0:
             pos: QPoint = a0.pos()

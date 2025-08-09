@@ -21,20 +21,20 @@ round_button_stylesheet = """
 class DemoWindow(FramelessWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
-        self.titlebar.setTitle('Hello world')
+        self.setTitle('Hello world')
         self.setStyleSheet(stylesheet)
         self.resize(700, 500)
         nyancat_label = QtWidgets.QLabel()
         movie = QMovie(str(Path(__file__).parent / 'assets' / 'nyancat.gif'))
         nyancat_label.setMovie(movie)
         movie.start()
-        self.titlebar.add_left_widget(nyancat_label)
+        self.add_left_widget(nyancat_label)
 
         version_button = QtWidgets.QPushButton(f'v.{__version__}')
         version_button.setMinimumWidth(60)
         version_button.setObjectName('version_button')
         version_button.setStyleSheet(round_button_stylesheet)
-        self.titlebar.add_right_widget(version_button)
+        self.add_right_widget(version_button)
 
         tab_widget = QtWidgets.QTabWidget()
         btn = QtWidgets.QPushButton('Push button')
@@ -42,7 +42,7 @@ class DemoWindow(FramelessWindow):
                           QtWidgets.QSizePolicy.Policy.Expanding)
         tab_widget.addTab(btn, 'Tab1')
         tab_widget.addTab(QtWidgets.QWidget(), 'Tab2')
-        self.body_layout.addWidget(tab_widget)
+        self.addWidget(tab_widget)
 
 
 if __name__ == '__main__':
