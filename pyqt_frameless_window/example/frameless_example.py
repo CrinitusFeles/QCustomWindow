@@ -1,5 +1,5 @@
 from pathlib import Path
-from pyqt_frameless_window import (FramelessWindow, QtWidgets, QMovie,
+from pyqt_frameless_window import (FramelessWindow, QtWidgets, QMovie, QtGui,
                                    __version__, dark, light, stylesheet)  # noqa: F401
 
 
@@ -18,6 +18,7 @@ round_button_stylesheet = """
 """
 
 
+
 class DemoWindow(FramelessWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -25,7 +26,8 @@ class DemoWindow(FramelessWindow):
         self.setStyleSheet(stylesheet)
         self.resize(700, 500)
         nyancat_label = QtWidgets.QLabel()
-        movie = QMovie(str(Path(__file__).parent / 'assets' / 'nyancat.gif'))
+        assets = Path(__file__).parent / 'assets'
+        movie = QMovie(str(assets / 'nyancat.gif'))
         nyancat_label.setMovie(movie)
         movie.start()
         self.add_left_widget(nyancat_label)
@@ -44,6 +46,23 @@ class DemoWindow(FramelessWindow):
         tab_widget.addTab(QtWidgets.QWidget(), 'Tab2')
         self.addWidget(tab_widget)
 
+        self.dark_icon = QtGui.QIcon(str(assets / 'dark.svg'))
+        self.light_icon = QtGui.QIcon(str(assets / 'light.svg'))
+        self.style_button = QtWidgets.QPushButton()
+        self.style_button.setIcon(self.dark_icon)
+        self.style_button.setFlat(True)
+        self.style_button.clicked.connect(self.on_change_style)
+        self.add_right_widget(self.style_button)
+        self.is_dark = True
+
+    def on_change_style(self):
+        if not self.is_dark:
+            dark()
+            self.style_button.setIcon(self.dark_icon)
+        else:
+            light()
+            self.style_button.setIcon(self.light_icon)
+        self.is_dark = not self.is_dark
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

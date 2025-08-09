@@ -1,4 +1,4 @@
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
 try:
     from PyQt6.QtCore import QPointF, QSize, Qt, QPoint, QRect, QTimer, QEvent
@@ -19,7 +19,7 @@ except ImportError:
     from PySide6.QtWidgets import (QToolButton, QWidget, QApplication,  # noqa: F401
                                    QVBoxLayout, QTabWidget, QSizeGrip,
                                    QHBoxLayout, QLabel)
-    from PySide6 import QtWidgets, QtGui  # noqa: F401
+    from PySide6 import QtWidgets, QtGui, QtCore  # noqa: F401
 from .frameless import FramelessWindow  # noqa: F401
 from .style.palettes import dark, light  # noqa: F401
 from .style.stylesheets import stylesheet  # noqa: F401
