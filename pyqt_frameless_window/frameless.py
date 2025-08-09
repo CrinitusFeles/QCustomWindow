@@ -1,32 +1,25 @@
-from pyqt_frameless_window import (Qt, QPoint, QShortcut, QKeySequence,
-                                   QApplication, QVBoxLayout,
-                                   QTabWidget, QWidget)
+from pyqt_frameless_window import (Qt, QShortcut, QKeySequence, QTabWidget,
+                                   QApplication, QVBoxLayout,QWidget)
 from pyqt_frameless_window.size_grips import SizeGrips
 from pyqt_frameless_window.title_bar import TitleBar
 from ctypes import cast
-from ctypes.wintypes import LPRECT, MSG
+from ctypes.wintypes import MSG
 import win32con
 
 from pyqt_frameless_window.utils import LPNCCALCSIZE_PARAMS, isMaximized
 
 
 class FramelessWindow(QWidget):
-    BORDER_WIDTH = 10
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
-        self.frameless_sc = QShortcut(QKeySequence('F11'), self,
-                                      self.on_full_screen,
-                                      context=Qt.ShortcutContext.ApplicationShortcut)
-
         self.resize(500, 500)
         self._layout = QVBoxLayout()
         self._layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self._layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 5, 0, 0)
         self._layout.setSpacing(0)
         self.setLayout(self._layout)
+
         self.titlebar = TitleBar(self)
-        self.titlebar.maxButton.clicked.connect(self.on_maximize)
-        self.titlebar.window_moved.connect(self.on_move)
         self._layout.addWidget(self.titlebar)
 
         self.body = QWidget()
@@ -36,6 +29,9 @@ class FramelessWindow(QWidget):
         self._layout.addWidget(self.body)
 
         self.size_grips = SizeGrips(self)
+        self.frameless_sc = QShortcut(QKeySequence('F11'), self,
+                                      self.on_full_screen,
+                                      context=Qt.ShortcutContext.ApplicationShortcut)
 
     def nativeEvent(self, eventType, message): # type: ignore
         """ Handle the Windows message """
@@ -44,25 +40,21 @@ class FramelessWindow(QWidget):
         if not msg.hWnd:
             return False, 0
         if msg.message == win32con.WM_NCCALCSIZE:
-            if msg.wParam:
-                c = cast(msg.lParam, LPNCCALCSIZE_PARAMS)
-                rect = c.contents.rgrc[0]
-                if isMaximized(msg.hWnd) or self.isFullScreen():
-                    if not self.isFullScreen():
-                        rect.top += 5
-                    self.titlebar.set_maximized()
-                    self.size_grips.set_grips_visible(False)
-                else:
-                    self.titlebar.set_normal()
-                    self.size_grips.set_grips_visible(True)
-                    rect.top -= 5
-                    rect.bottom -= 5
+            rect = cast(msg.lParam, LPNCCALCSIZE_PARAMS).contents.rgrc[0]
+            if isMaximized(msg.hWnd) or self.isFullScreen():
+                if not self.isFullScreen():
+                    rect.top += 5
+                self.titlebar.set_maximized()
+                self.size_grips.set_grips_visible(False)
             else:
-                rect = cast(msg.lParam, LPRECT).contents
+                self.titlebar.set_normal()
+                self.size_grips.set_grips_visible(True)
+                rect.top -= 5
+                rect.bottom -= 5
             return True, 0
         return False, 0
 
-    def on_full_screen(self):
+    def on_full_screen(self) -> None:
         if self.isFullScreen():
             self.showNormal()
             self.titlebar.setVisible(True)
@@ -70,16 +62,7 @@ class FramelessWindow(QWidget):
             self.showFullScreen()
             self.titlebar.setVisible(False)
 
-    def on_maximize(self):
-        if self.isMaximized():
-            self.showNormal()
-        else:
-            self.showMaximized()
-
-    def on_move(self, movement: QPoint):
-        _ = self.windowHandle().startSystemMove()  # type: ignore
-
-    def resizeEvent(self, a0):
+    def resizeEvent(self, a0) -> None:
         super().resizeEvent(a0)
         self.size_grips.updateGrips()
 

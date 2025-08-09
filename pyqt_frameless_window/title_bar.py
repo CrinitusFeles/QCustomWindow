@@ -49,6 +49,13 @@ class TitleBar(QWidget):
 
     def set_maximized(self) -> None:
         self.maxButton.setMaxState(True)
+        self.on_maximize()
+
+    def on_maximize(self) -> None:
+        if self.parent_obj.isMaximized():
+            self.parent_obj.showNormal()
+        else:
+            self.parent_obj.showMaximized()
 
     def set_normal(self) -> None:
         self.maxButton.setMaxState(False)
@@ -86,6 +93,7 @@ class TitleBar(QWidget):
     def mouseMoveEvent(self, a0: QMouseEvent | None) -> None:
         if a0 and self.pressing:
             end: QPoint = self.mapToGlobal(a0.pos())
-            movement: QPoint = end - self._start
+            movement: QPoint = end - self._start  # noqa: F841
             self._start = end
-            self.window_moved.emit(movement)
+            # self.window_moved.emit(movement)
+            self.parent_obj.windowHandle().startSystemMove()  # type: ignore

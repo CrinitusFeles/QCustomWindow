@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-08-09
 
 ### Added
+- Added changelog by @CrinitusFeles
 - Added left margin for titlebar by @CrinitusFeles
 - Added demo.mkv by @CrinitusFeles
 

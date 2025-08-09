@@ -9,7 +9,7 @@ try:
                                  QVBoxLayout, QTabWidget, QSizeGrip,
                                  QHBoxLayout, QLabel)
     from PyQt6.QtCore import pyqtSignal as Signal
-    from PyQt6 import QtWidgets, QtGui
+    from PyQt6 import QtWidgets, QtGui, QtCore
 except ImportError:
     from PySide6.QtCore import (QPointF, QSize, Qt, QPoint, QRect, QTimer,  # noqa: F401
                                 Signal, QEvent)
