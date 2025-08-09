@@ -48,7 +48,8 @@ class FramelessWindow(QWidget):
                 c = cast(msg.lParam, LPNCCALCSIZE_PARAMS)
                 rect = c.contents.rgrc[0]
                 if isMaximized(msg.hWnd) or self.isFullScreen():
-                    rect.top += 5
+                    if not self.isFullScreen():
+                        rect.top += 5
                     self.titlebar.set_maximized()
                     self.size_grips.set_grips_visible(False)
                 else:
