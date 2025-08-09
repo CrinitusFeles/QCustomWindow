@@ -1,6 +1,6 @@
 # PyQt-Frameless-Window
 
-PyQt6/PySide6 native resizable frameless window with custom tittle bar and all Windows features
+PyQt6/PySide6 native jitterless resizable frameless window with custom tittle bar and all Windows features
 
 # Installation
 
