@@ -11,7 +11,6 @@ class TitleBar(QWidget):
         self.setFixedHeight(32)
         parent.setWindowTitle(title)
         self.setStyleSheet('background-color: palette(Window);')
-        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground)
 
         self._layout = QHBoxLayout()
         self._layout.setContentsMargins(0, 0, 0, 0)
@@ -46,9 +45,7 @@ class TitleBar(QWidget):
         self._layout.addWidget(self.maxButton)
         self._layout.addWidget(self.closeButton)
         self.pressing: bool = False
-        self.anims = list()
         self._start: QPoint = QPoint(0, 0)
-        self.window().installEventFilter(self)  # type: ignore
 
     def set_maximized(self) -> None:
         self.maxButton.setMaxState(True)
@@ -92,4 +89,3 @@ class TitleBar(QWidget):
             movement: QPoint = end - self._start
             self._start = end
             self.window_moved.emit(movement)
-
