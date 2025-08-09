@@ -1,6 +1,6 @@
 # PyQt-Frameless-Window
 
-PyQt6/PySide6 resizable frameless window with custom tittle bar and Windows snap layout keyboard shortcuts
+PyQt6/PySide6 native resizable frameless window with custom tittle bar and all Windows features
 
 # Installation
 
@@ -26,13 +26,13 @@ This library provides `FramelessWindow` base class from which your widgets can b
 
 `FramelessWindow` has three areas: `ResizableFrame` (transparent), `TitleBar` and `Body`.
 
-![text](./assets/FramelessWindow.png)
+<!-- ![text](./assets/FramelessWindow.png) -->
 
-`FramelessWindow` object has attribute `titlebar` which you can customize as you wish. `titlebar` has 3 `QHBoxLayout` at right, center and left areas. These areas are designed for user's custom widgets.
+`FramelessWindow` object has an attribute `titlebar` which you can customize as you wish. `titlebar` has 3 `QHBoxLayout` at right, center and left areas. These areas are designed for user's custom widgets.
 
 For placing main widget user can use `body_layout` attribute which is `QVBoxLayout` object.
 
-`FramelessWindow` emulates snap layout behavior of Windows10 with hotkeys combinations: `Win + Left/Right/Up/Down`. Also implemented fullscreen mode with `F11` hotkey similar to web browser.
+Also implemented fullscreen mode with `F11` hotkey similar to web browser.
 
 ![](./assets/demo.gif)
 
