@@ -1,6 +1,6 @@
 from pathlib import Path
 from pyqt_frameless_window import (Qt, QPoint, QMouseEvent, QWidget, Signal,
-                                   QHBoxLayout, QLabel, QPixmap)
+                                   QHBoxLayout, QLabel, QPixmap, QApplication)
 from pyqt_frameless_window.buttons import (CloseButton, MaximizeButton,
                                            MinimizeButton)
 
@@ -73,7 +73,7 @@ class TitleBar(QWidget):
         self.center_layout.setContentsMargins(self.closeButton.width() * 3,
                                               0, 0, 0)
 
-        self.closeButton.clicked.connect(parent.close)
+        self.closeButton.clicked.connect(QApplication.closeAllWindows)
         self.minButton.clicked.connect(parent.showMinimized)
         self.maxButton.clicked.connect(self.set_maximized)
         self._layout.addWidget(self.minButton,
