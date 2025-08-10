@@ -1,21 +1,16 @@
 # coding:utf-8
 from typing import Literal
 from pyqt_frameless_window import (QPointF, Qt, QColor, QPainter, QtCore,
-                                   QPainterPath, QPen, QToolButton)
+                                   QPainterPath, QPen, QToolButton, QPalette)
 
 
 class TitleBarButton(QToolButton):
-    def __init__(self, style=None, parent=None) -> None:
+    def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
         self.setCursor(Qt.CursorShape.ArrowCursor)
         self.setFixedSize(46, 32)
-        self._state = "normal"
-        self._style: dict[str, dict[str, str]] = {
-            "normal": {"color": '#000000', "background": '#00000000'},
-            "hover": {"color": '#FFFFFF', "background": '#0064B6'},
-            "pressed": {"color": '#FFFFFF', "background": '#363941'},
-        }
-        self.updateStyle(style)
+        self._state: Literal["normal", "hover", "pressed"] = "normal"
+
         self.setStyleSheet("""
             QToolButton{
                 background-color: transparent;
@@ -24,12 +19,13 @@ class TitleBarButton(QToolButton):
             }
         """)
 
-    def updateStyle(self, style) -> None:
-        style = style or {}
-        for k, v in style.items():
-            self._style[k].update(v)
-
-        self.update()
+    def _style(self):
+        p = self.palette()
+        return {
+            "normal": {"color": p.color(QPalette.ColorRole.ButtonText), "background": '#00000000'},
+            "hover": {"color": '#FFFFFF', "background": '#0064B6'},
+            "pressed": {"color": '#FFFFFF', "background": '#363941'},
+        }
 
     def setState(self, state: Literal["normal", "hover", "pressed"]):
         self._state = state
@@ -53,7 +49,7 @@ class TitleBarButton(QToolButton):
     def _init_painter(self) -> QPainter:
         painter = QPainter(self)
         # draw background
-        style = self._style[self._state]
+        style = self._style()[self._state]
         painter.setBrush(QColor(style["background"]))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRect(self.rect())
@@ -62,6 +58,7 @@ class TitleBarButton(QToolButton):
         pen = QPen(QColor(style["color"]), 1)
         pen.setCosmetic(True)
         painter.setPen(pen)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         return painter
 
 
@@ -72,23 +69,21 @@ class MinimizeButton(TitleBarButton):
 
 
 class MaximizeButton(TitleBarButton):
-    def __init__(self, style=None, parent=None) -> None:
-        super().__init__(style, parent)
-        self.__isMax: bool = False
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._isMax: bool = False
 
     def setMaxState(self, isMax: bool) -> None:
-        if self.__isMax == isMax:
+        if self._isMax == isMax:
             return
-
-        self.__isMax = isMax
+        self._isMax = isMax
         self.setState("normal")
 
     def paintEvent(self, a0):
         painter: QPainter = self._init_painter()
-
         r: float = self.devicePixelRatioF()
         painter.scale(1 / r, 1 / r)
-        if not self.__isMax:
+        if not self._isMax:
             painter.drawRect(int(18 * r), int(11 * r), int(10 * r), int(10 * r))
         else:
             painter.drawRect(int(18 * r), int(13 * r), int(8 * r), int(8 * r))
@@ -104,14 +99,16 @@ class MaximizeButton(TitleBarButton):
 
 
 class CloseButton(TitleBarButton):
-    def __init__(self, style=None, parent=None):
-        defaultStyle: dict[str, dict[str, str]] = {
-            "normal": {"background": '#00000000', "color": '#000000'},
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def _style(self):
+        p = self.palette()
+        return {
+            "normal": {"background": '#00000000', "color": p.color(QPalette.ColorRole.ButtonText)},
             "hover": {"background": '#E81123', "color": '#FFFFFF'},
             "pressed": {"background": '#F1707A', "color": '#FFFFFF'},
         }
-        super().__init__(defaultStyle, parent)
-        self.updateStyle(style)
 
     def paintEvent(self, a0) -> None:
         painter: QPainter = self._init_painter()
