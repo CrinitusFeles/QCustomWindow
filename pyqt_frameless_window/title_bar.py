@@ -29,6 +29,8 @@ class LabelIcon(QWidget):
         self.icon_label.setPixmap(self.pixmap)
 
     def resizeEvent(self, a0):
+        if self.pixmap.isNull():
+            return
         w, h = self.width(), self.height()
         t = Qt.TransformationMode.SmoothTransformation
         k = Qt.AspectRatioMode.KeepAspectRatio
