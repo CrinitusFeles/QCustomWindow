@@ -1,7 +1,7 @@
 [project]
 name = "pyqt-frameless-window"
 version = "0.2.0"
-description = "Add your description here"
+description = "PyQt6/PySide6 native jitterless resizable window with custom tittle bar and all Windows features"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -22,3 +22,6 @@ include = ["pyqt_frameless_window*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.gif", "*.svg"]
+
+[tool.uv]
+config-settings = { editable_mode = "strict" }
