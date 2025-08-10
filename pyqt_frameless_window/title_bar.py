@@ -1,6 +1,40 @@
-from pyqt_frameless_window import Qt, QPoint, QMouseEvent, QWidget, Signal, QHBoxLayout, QLabel
+from pathlib import Path
+from pyqt_frameless_window import (Qt, QPoint, QMouseEvent, QWidget, Signal,
+                                   QHBoxLayout, QLabel, QPixmap)
 from pyqt_frameless_window.buttons import (CloseButton, MaximizeButton,
                                            MinimizeButton)
+
+
+class LabelIcon(QWidget):
+    def __init__(self, text: str = '', icon_path: Path | str | None = None) -> None:
+        super().__init__()
+        self.icon_label = QLabel()
+        if isinstance(icon_path, Path):
+            icon_path = str(icon_path)
+        if icon_path:
+            self.pixmap = QPixmap(icon_path)
+        else:
+            self.pixmap = QPixmap()
+        self.icon_label.setPixmap(self.pixmap)
+        self.setMaximumHeight(25)
+        self.text_label = QLabel(text)
+        self._layout = QHBoxLayout()
+        self._layout.addWidget(self.icon_label)
+        self._layout.addWidget(self.text_label)
+        self._layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(self._layout)
+
+    def set_icon(self, icon_path: Path | str) -> None:
+        print(self.pixmap.load(str(icon_path)))
+        self.icon_label.setPixmap(self.pixmap)
+
+    def resizeEvent(self, a0):
+        w, h = self.width(), self.height()
+        t = Qt.TransformationMode.SmoothTransformation
+        k = Qt.AspectRatioMode.KeepAspectRatio
+        pixmap = self.pixmap.scaled(w, h, transformMode=t,
+                                                    aspectRatioMode=k)
+        self.icon_label.setPixmap(pixmap)
 
 
 class TitleBar(QWidget):
@@ -20,6 +54,8 @@ class TitleBar(QWidget):
         self.left_layout.setContentsMargins(10, 0, 0, 0)
         self.center_layout = QHBoxLayout()
         self.center_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.center_layout.setSpacing(10)
+        self._layout.setStretchFactor(self.center_layout, 1)
         self.right_layout = QHBoxLayout()
         self.left_layout.setSpacing(15)
         self.right_layout.setSpacing(10)
@@ -27,15 +63,13 @@ class TitleBar(QWidget):
         self._layout.addLayout(self.left_layout)
         self._layout.addLayout(self.center_layout, 1)
         self._layout.addLayout(self.right_layout)
-        self.right_layout.addStretch()
-        self.title_label = QLabel(title)
+        self.title_label = LabelIcon(title)
         self.center_layout.addWidget(self.title_label)
         self.closeButton = CloseButton()
         self.maxButton = MaximizeButton()
         self.minButton = MinimizeButton()
         self.center_layout.setContentsMargins(self.closeButton.width() * 3,
                                               0, 0, 0)
-        self.center_layout.setSpacing(10)
 
         self.closeButton.clicked.connect(parent.close)
         self.minButton.clicked.connect(parent.showMinimized)

@@ -1,3 +1,4 @@
+from pathlib import Path
 from pyqt_frameless_window import (Qt, QShortcut, QKeySequence, QTabWidget,
                                    QApplication, QVBoxLayout,QWidget)
 from pyqt_frameless_window.size_grips import SizeGrips
@@ -76,13 +77,17 @@ class FramelessWindow(QWidget):
 
     def setTitle(self, title: str) -> None:
         self.setWindowTitle(title)
-        self.titlebar.title_label.setText(title)
+        self.titlebar.title_label.text_label.setText(title)
 
     def title(self) -> str:
-        return self.title_label.text()
+        return self.title_label.text_label.text()
 
     def addWidget(self, w: QWidget):
         self.body_layout.addWidget(w)
+
+    def set_icon(self, icon_path: str | Path):
+        self.titlebar.title_label.set_icon(icon_path)
+
 
 if __name__ == '__main__':
     app = QApplication([])
