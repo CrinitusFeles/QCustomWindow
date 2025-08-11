@@ -80,7 +80,7 @@ class FramelessWindow(QWidget):
         self.titlebar.title_label.text_label.setText(title)
 
     def title(self) -> str:
-        return self.title_label.text_label.text()
+        return self.titlebar.title_label.text_label.text()
 
     def addWidget(self, w: QWidget):
         self.body_layout.addWidget(w)
