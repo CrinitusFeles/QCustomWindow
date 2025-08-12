@@ -41,14 +41,14 @@ class FramelessWindow(QWidget):
             return False, 0
         if msg.message == win32con.WM_NCCALCSIZE:
             rect = cast(msg.lParam, LPNCCALCSIZE_PARAMS).contents.rgrc[0]
-            if isMaximized(msg.hWnd) or self.isFullScreen():
+            if isMaximized(msg.hWnd):
                 if not self.isFullScreen():
                     rect.top += 5
                 self.titlebar.set_maximized()
                 self.size_grips.set_grips_visible(False)
             else:
                 self.titlebar.set_normal()
-                self.size_grips.set_grips_visible(True)
+                self.size_grips.set_grips_visible(not self.isFullScreen())
                 rect.top -= 5
                 rect.bottom -= 5
             return True, 0
@@ -61,6 +61,7 @@ class FramelessWindow(QWidget):
         else:
             self.showFullScreen()
             self.titlebar.setVisible(False)
+            self.size_grips.set_grips_visible(False)
 
     def resizeEvent(self, a0) -> None:
         super().resizeEvent(a0)
