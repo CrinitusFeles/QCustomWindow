@@ -1,4 +1,4 @@
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 try:
     from PyQt6.QtCore import QPointF, QSize, Qt, QPoint, QRect, QTimer, QEvent

@@ -1,6 +1,6 @@
 [project]
 name = "pyqt-frameless-window"
-version = "0.3.0"
+version = "0.3.1"
 description = "PyQt6/PySide6 native jitterless resizable window with custom tittle bar and all Windows features"
 readme = "README.md"
 requires-python = ">=3.11"
