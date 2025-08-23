@@ -45,8 +45,8 @@ class FramelessWindow(QWidget):
                 if not self.isFullScreen():
                     rect.top += 3
                     rect.bottom += 3
-                    rect.right -= 7
-                    rect.left += 7
+                    rect.right -= 8
+                    rect.left += 8
                 self.titlebar.set_maximized()
                 self.size_grips.set_grips_visible(False)
             else:
