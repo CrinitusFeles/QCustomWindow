@@ -46,7 +46,6 @@ class TitleBar(QWidget):
         self.parent_obj: QWidget = parent
         self.setFixedHeight(32)
         parent.setWindowTitle(title)
-        self.setStyleSheet('background-color: palette(Window);')
 
         self._layout = QHBoxLayout()
         self._layout.setContentsMargins(0, 0, 0, 0)
