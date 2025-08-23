@@ -23,7 +23,6 @@ class DemoWindow(FramelessWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setTitle('Hello world')
-        self.setStyleSheet(stylesheet)
         self.resize(700, 500)
         nyancat_label = QtWidgets.QLabel()
         assets = Path(__file__).parent / 'assets'
@@ -66,6 +65,7 @@ class DemoWindow(FramelessWindow):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
+    app.setStyleSheet(stylesheet)
     dark()
     w = DemoWindow()
     w.show()
