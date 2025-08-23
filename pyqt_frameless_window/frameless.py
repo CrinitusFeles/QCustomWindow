@@ -44,7 +44,7 @@ class FramelessWindow(QWidget):
             if isMaximized(msg.hWnd):
                 if not self.isFullScreen():
                     rect.top += 3
-                    rect.bottom += 3
+                    rect.bottom -= 8
                     rect.right -= 8
                     rect.left += 8
                 self.titlebar.set_maximized()
