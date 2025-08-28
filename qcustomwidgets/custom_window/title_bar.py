@@ -1,8 +1,8 @@
 from pathlib import Path
-from pyqt_frameless_window import (Qt, QPoint, QMouseEvent, QWidget, Signal,
+from qcustomwidgets import (Qt, QPoint, QMouseEvent, QWidget, Signal,
                                    QHBoxLayout, QLabel, QPixmap, QApplication)
-from pyqt_frameless_window.buttons import (CloseButton, MaximizeButton,
-                                           MinimizeButton)
+from qcustomwidgets.custom_window.buttons import (CloseButton, MaximizeButton,
+                                                  MinimizeButton)
 
 
 class LabelIcon(QWidget):

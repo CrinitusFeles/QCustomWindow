@@ -1,16 +1,16 @@
 from pathlib import Path
-from pyqt_frameless_window import (Qt, QShortcut, QKeySequence, QTabWidget,
+from qcustomwidgets import (Qt, QShortcut, QKeySequence, QTabWidget,
                                    QApplication, QVBoxLayout,QWidget)
-from pyqt_frameless_window.size_grips import SizeGrips
-from pyqt_frameless_window.title_bar import TitleBar
+from qcustomwidgets.custom_window.size_grips import SizeGrips
+from qcustomwidgets.custom_window.title_bar import TitleBar
 from ctypes import cast
 from ctypes.wintypes import MSG
 import win32con
 
-from pyqt_frameless_window.utils import LPNCCALCSIZE_PARAMS, isMaximized
+from qcustomwidgets.custom_window.utils import LPNCCALCSIZE_PARAMS, isMaximized
 
 
-class FramelessWindow(QWidget):
+class CustomWindow(QWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
         self.resize(500, 500)
@@ -95,7 +95,7 @@ class FramelessWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication([])
-    w = FramelessWindow()
+    w = CustomWindow()
 
     f = QTabWidget(w)
     w.body_layout.addWidget(f)

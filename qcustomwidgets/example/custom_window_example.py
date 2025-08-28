@@ -1,5 +1,5 @@
 from pathlib import Path
-from pyqt_frameless_window import (FramelessWindow, QtWidgets, QMovie, QtGui,
+from qcustomwidgets import (CustomWindow, QtWidgets, QMovie, QtGui,
                                    __version__, dark, light, stylesheet)  # noqa: F401
 
 
@@ -19,7 +19,7 @@ round_button_stylesheet = """
 
 
 
-class DemoWindow(FramelessWindow):
+class DemoWindow(CustomWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setTitle('Hello world')

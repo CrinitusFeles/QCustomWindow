@@ -1,4 +1,4 @@
-from pyqt_frameless_window import QSizeGrip, QWidget, QRect, QPoint, Qt
+from qcustomwidgets import QSizeGrip, QWidget, QRect, QPoint, Qt
 
 
 class SideGrip(QWidget):

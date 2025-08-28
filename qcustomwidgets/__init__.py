@@ -20,6 +20,6 @@ except ImportError:
                                    QVBoxLayout, QTabWidget, QSizeGrip,
                                    QHBoxLayout, QLabel)
     from PySide6 import QtWidgets, QtGui, QtCore  # noqa: F401
-from .frameless import FramelessWindow  # noqa: F401
+from .custom_window.window import CustomWindow  # noqa: F401
 from .style.palettes import dark, light  # noqa: F401
 from .style.stylesheets import stylesheet  # noqa: F401

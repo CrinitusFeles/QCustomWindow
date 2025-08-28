@@ -1,6 +1,6 @@
 # coding:utf-8
 from typing import Literal
-from pyqt_frameless_window import (QPointF, Qt, QColor, QPainter, QtCore,
+from qcustomwidgets import (QPointF, Qt, QColor, QPainter, QtCore,
                                    QPainterPath, QPen, QToolButton, QPalette)
 
 

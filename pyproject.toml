@@ -1,5 +1,5 @@
 [project]
-name = "pyqt-frameless-window"
+name = "qcustomwidgets"
 version = "0.3.3"
 description = "PyQt6/PySide6 native jitterless resizable window with custom tittle bar and all Windows features"
 readme = "README.md"
@@ -18,10 +18,10 @@ pyside = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["pyqt_frameless_window*"]
+include = ["qcustomwidgets*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.gif", "*.svg"]
 
 [tool.uv]
-config-settings = { editable_mode = "strict" }
+config-settings = { editable_mode = "compat" }
