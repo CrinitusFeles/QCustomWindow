@@ -1,8 +1,7 @@
 from pathlib import Path
 from qcustomwindow import (Qt, QPoint, QMouseEvent, QWidget, Signal,
                                    QHBoxLayout, QLabel, QPixmap, QApplication)
-from qcustomwindow.custom_window.buttons import (CloseButton, MaximizeButton,
-                                                  MinimizeButton)
+from qcustomwindow.buttons import CloseButton, MaximizeButton, MinimizeButton
 
 
 class LabelIcon(QWidget):

@@ -1,13 +1,13 @@
 from pathlib import Path
 from qcustomwindow import (Qt, QShortcut, QKeySequence, QTabWidget,
                                    QApplication, QVBoxLayout,QWidget)
-from qcustomwindow.custom_window.size_grips import SizeGrips
-from qcustomwindow.custom_window.title_bar import TitleBar
+from qcustomwindow.size_grips import SizeGrips
+from qcustomwindow.title_bar import TitleBar
 from ctypes import cast
 from ctypes.wintypes import MSG
 import win32con
 
-from qcustomwindow.custom_window.utils import LPNCCALCSIZE_PARAMS, isMaximized
+from qcustomwindow.utils import LPNCCALCSIZE_PARAMS, isMaximized
 
 
 class CustomWindow(QWidget):
