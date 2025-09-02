@@ -19,7 +19,7 @@ pyside = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["qcustomwidgets*"]
+include = ["qcustomwindow*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.gif", "*.svg"]
