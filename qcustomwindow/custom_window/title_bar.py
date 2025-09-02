@@ -1,7 +1,7 @@
 from pathlib import Path
-from qcustomwidgets import (Qt, QPoint, QMouseEvent, QWidget, Signal,
+from qcustomwindow import (Qt, QPoint, QMouseEvent, QWidget, Signal,
                                    QHBoxLayout, QLabel, QPixmap, QApplication)
-from qcustomwidgets.custom_window.buttons import (CloseButton, MaximizeButton,
+from qcustomwindow.custom_window.buttons import (CloseButton, MaximizeButton,
                                                   MinimizeButton)
 
 

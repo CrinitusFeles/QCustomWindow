@@ -1,5 +1,5 @@
 from pathlib import Path
-from qcustomwidgets import (CustomWindow, QtWidgets, QMovie, QtGui,
+from qcustomwindow import (CustomWindow, QtWidgets, QMovie, QtGui,
                                    __version__, dark, light, stylesheet)  # noqa: F401
 
 

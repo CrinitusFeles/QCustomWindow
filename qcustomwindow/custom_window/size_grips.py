@@ -1,4 +1,4 @@
-from qcustomwidgets import QSizeGrip, QWidget, QRect, QPoint, Qt
+from qcustomwindow import QSizeGrip, QWidget, QRect, QPoint, Qt
 
 
 class SideGrip(QWidget):

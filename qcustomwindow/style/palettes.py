@@ -1,5 +1,4 @@
-from PyQt6 import QtGui, QtWidgets
-from PyQt6.QtGui import QPalette, QColor
+from qcustomwindow import QtGui, QtWidgets, QPalette, QColor
 
 
 def dark() -> None:
