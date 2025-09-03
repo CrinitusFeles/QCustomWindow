@@ -23,7 +23,7 @@ uv add git+https://github.com/CrinitusFeles/QCustomWindow[pyqt]
 
 This library provides `CustomWindow` base class from which your widgets can be inheritance.
 
-`FramelessWindow` has three areas: `ResizableFrame` (transparent), `TitleBar` and `Body`.
+`CustomWindow` has three areas: `ResizableFrame` (transparent), `TitleBar` and `Body`.
 
 <!-- ![text](./assets/FramelessWindow.png) -->
 
@@ -35,4 +35,4 @@ Also implemented fullscreen mode with `F11` hotkey similar to web browser.
 
 ![](./assets/demo.gif)
 
-Example of using `FramelessWindow` you can find [here](https://github.com/CrinitusFeles/QCustomWindow/blob/main/qcustomwidgets/example/custom_window_example.py).
+Example of using `CustomWindow` you can find [here](https://github.com/CrinitusFeles/QCustomWindow/blob/main/qcustomwindow/example/custom_window_example.py).
