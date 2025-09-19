@@ -71,7 +71,7 @@ class TitleBar(QWidget):
         self.center_layout.setContentsMargins(self.closeButton.width() * 3,
                                               0, 0, 0)
 
-        self.closeButton.clicked.connect(QApplication.closeAllWindows)
+        self.closeButton.clicked.connect(parent.close)
         self.minButton.clicked.connect(parent.showMinimized)
         self.maxButton.clicked.connect(self.set_maximized)
         self._layout.addWidget(self.minButton,
