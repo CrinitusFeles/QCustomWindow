@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pywin32>=311",
+    "qcustomwidgets",
     "typing-extensions>=4.15.0",
 ]
 
@@ -26,3 +27,6 @@ include = ["qcustomwindow*"]
 
 [tool.uv]
 config-settings = { editable_mode = "compat" }
+
+[tool.uv.sources]
+qcustomwidgets = { git = "https://github.com/CrinitusFeles/QCustomWidgets" }

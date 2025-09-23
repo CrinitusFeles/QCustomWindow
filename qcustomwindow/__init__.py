@@ -28,5 +28,3 @@ except ImportError:
                                    QGraphicsDropShadowEffect, QStackedLayout)
     from PySide6 import QtWidgets, QtGui, QtCore  # noqa: F401
 from .window import CustomWindow  # noqa: F401
-from .style.palettes import dark, light  # noqa: F401
-from .style.stylesheets import stylesheet  # noqa: F401
