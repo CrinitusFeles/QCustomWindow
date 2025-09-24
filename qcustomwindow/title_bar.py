@@ -71,7 +71,7 @@ class TitleBar(QWidget):
         self.center_layout.setContentsMargins(self.closeButton.width() * 3,
                                               0, 0, 0)
 
-        self.closeButton.clicked.connect(parent.close)
+        self.closeButton.clicked.connect(self.on_close)
         self.minButton.clicked.connect(parent.showMinimized)
         self.maxButton.clicked.connect(self.set_maximized)
         self._layout.addWidget(self.minButton,
@@ -80,6 +80,10 @@ class TitleBar(QWidget):
         self._layout.addWidget(self.closeButton)
         self.pressing: bool = False
         self._start: QPoint = QPoint(0, 0)
+
+    def on_close(self):
+        self.parent_obj.close()
+        self.closeButton.setState('normal')
 
     def set_maximized(self) -> None:
         self.maxButton.setMaxState(True)
