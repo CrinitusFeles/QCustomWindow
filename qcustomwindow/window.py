@@ -27,7 +27,7 @@ class CustomWindow(QWidget):
         self.body_layout: QVBoxLayout = QVBoxLayout()
         self.body.setLayout(self.body_layout)
         self.body_layout.setContentsMargins(0, 0, 0, 0)
-        self._layout.addWidget(self.body)
+        self._layout.addWidget(self.body, 1)
 
         self.size_grips = SizeGrips(self)
         self.frameless_sc = QShortcut(QKeySequence('F11'), self,
