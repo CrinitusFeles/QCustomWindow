@@ -47,8 +47,10 @@ class CustomWindow(QWidget):
                     rect.bottom -= 8
                     rect.right -= 8
                     rect.left += 8
-                self.titlebar.set_maximized()
                 self.size_grips.set_grips_visible(False)
+            elif all([val < 0 for val in [rect.bottom, rect.left,
+                                            rect.right, rect.top]]):
+                ...
             else:
                 self.titlebar.set_normal()
                 self.size_grips.set_grips_visible(not self.isFullScreen())
